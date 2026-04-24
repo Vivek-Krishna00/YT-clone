@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "./components.css";
+
 import { 
   Home, 
   PlayCircle, 
@@ -48,10 +50,16 @@ function Sidebar({ isOpen }) {
     <div className={`sidebar ${!isOpen ? "collapsed" : ""}`}>
       <div className="sidebar-section">
         {primaryItems.map((item, index) => (
-          <div key={index} className="sidebar-item">
-            <span className="icon">{item.icon}</span>
-            <span className="text">{item.label}</span>
-          </div>
+          <Link 
+            key={index} 
+            to={item.label === "Home" ? "/" : "#"} 
+            className="sidebar-link"
+          >
+            <div className="sidebar-item">
+              <span className="icon">{item.icon}</span>
+              <span className="text">{item.label}</span>
+            </div>
+          </Link>
         ))}
       </div>
 
@@ -63,10 +71,16 @@ function Sidebar({ isOpen }) {
           <ChevronRight size={16} />
         </div>
         {secondaryItems.map((item, index) => (
-          <div key={index} className="sidebar-item">
-            <span className="icon">{item.icon}</span>
-            <span className="text">{item.label}</span>
-          </div>
+          <Link 
+            key={index} 
+            to={item.label === "History" ? "/history" : "#"} 
+            className="sidebar-link"
+          >
+            <div className="sidebar-item">
+              <span className="icon">{item.icon}</span>
+              <span className="text">{item.label}</span>
+            </div>
+          </Link>
         ))}
       </div>
 

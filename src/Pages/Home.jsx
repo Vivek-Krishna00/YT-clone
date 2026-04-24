@@ -1,31 +1,49 @@
+import { useState, useEffect } from "react";
 import Layout from "../Components/Layout";
 import VideoList from "../Components/VideoList";
+import { fetchFromAPI, normalizeVideoData } from "../utils/api";
 
 function Home() {
-  const videos = [
-    {
-      id: 1,
-      title: "React Tutorial for Beginners",
-      thumbnail: "https://i.ytimg.com/vi/w7ejDZ8SWv8/hqdefault.jpg",
-      channelTitle: "Code Studio",
-      views: "142K views",
-      postedAt: "2 days ago",
-    },
-    {
-      id: 2,
-      title: "Build a YouTube Clone with React",
-      thumbnail: "https://i.ytimg.com/vi/FHTbsZEJspU/hqdefault.jpg",
-      channelTitle: "Dev Hub",
-      views: "87K views",
-      postedAt: "1 week ago",
-    },
-  ];
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getVideos = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchFromAPI('videos', {
+          chart: 'mostPopular',
+          maxResults: 20,
+          regionCode: 'US'
+        });
+        const normalized = data.map(normalizeVideoData);
+        setVideos(normalized);
+      } catch (err) {
+        setError("Failed to load videos. Please try again later.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getVideos();
+  }, []);
 
   return (
     <div>
-        <Layout >
-          <VideoList videos={videos} />  
-        </Layout>
+      <Layout>
+        {loading ? (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Loading the latest videos for you...</p>
+          </div>
+        ) : error ? (
+          <div className="error-message">{error}</div>
+        ) : (
+          <VideoList videos={videos} />
+        )}
+      </Layout>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Layout from "../Components/Layout";
-import VideoList from "../components/VideoList";
+import VideoList from "../Components/VideoList";
 import { fetchVideosWithDetails, normalizeVideoData } from "../utils/api";
 import { useInfiniteScroll } from "../utils/useInfiniteScroll";
 import "./Pages.css";

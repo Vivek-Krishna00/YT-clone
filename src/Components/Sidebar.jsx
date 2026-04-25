@@ -77,18 +77,26 @@ function Sidebar({ isOpen }) {
           <span className="text">You</span>
           <ChevronRight size={16} />
         </div>
-        {secondaryItems.map((item, index) => (
-          <Link 
-            key={index} 
-            to={item.label === "History" ? "/history" : item.label === "Watch Later" ? "/watch-later" : "#"} 
-            className="sidebar-link"
-          >
-            <div className="sidebar-item">
-              <span className="icon">{item.icon}</span>
-              <span className="text">{item.label}</span>
-            </div>
-          </Link>
-        ))}
+        {secondaryItems.map((item, index) => {
+          let link = "/";
+          if (item.label === "History") link = "/history";
+          if (item.label === "Watch Later") link = "/watch-later";
+          if (item.label === "Liked Videos") link = "/liked-videos";
+          
+          return (
+            <Link 
+              key={index} 
+              to={link} 
+              className="sidebar-link"
+            >
+              <div className="sidebar-item">
+                <span className="icon">{item.icon}</span>
+                <span className="text">{item.label}</span>
+              </div>
+            </Link>
+          );
+        })}
+
       </div>
 
       <hr className="sidebar-divider" />

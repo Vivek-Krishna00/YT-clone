@@ -5,6 +5,7 @@ import History from './Pages/History';
 import Subscriptions from './Pages/Subscriptions';
 import WatchLater from './Pages/WatchLater';
 import Shorts from './Pages/Shorts';
+import LikedVideos from './Pages/LikedVideos';
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/watch-later" element={<WatchLater />} />
         <Route path="/shorts" element={<Shorts />} />
+        <Route path="/liked-videos" element={<LikedVideos />} />
       </Routes>
     </Router>
+
   );
 }
 

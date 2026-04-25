@@ -21,6 +21,8 @@ function VideoPlayer() {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isInWatchLater, setIsInWatchLater] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
 
   useEffect(() => {
     if (videoDetail?.snippet?.channelId) {
@@ -29,6 +31,9 @@ function VideoPlayer() {
       
       const watchLater = JSON.parse(localStorage.getItem('watchLaterVideos') || '[]');
       setIsInWatchLater(watchLater.some(v => v.id === id));
+
+      const liked = JSON.parse(localStorage.getItem('likedVideos') || '[]');
+      setIsLiked(liked.some(v => v.id === id));
     }
   }, [videoDetail, id]);
 
@@ -51,6 +56,41 @@ function VideoPlayer() {
     
     localStorage.setItem('subscriptions', JSON.stringify(updatedSubscriptions));
     setIsSubscribed(!isSubscribed);
+  };
+
+  const handleToggleLike = () => {
+    const liked = JSON.parse(localStorage.getItem('likedVideos') || '[]');
+    let updatedLiked;
+    
+    if (isLiked) {
+      updatedLiked = liked.filter(v => v.id !== id);
+      setIsLiked(false);
+    } else {
+      const newVideo = {
+        id: id,
+        title: snippet.title,
+        thumbnail: snippet.thumbnails.medium.url,
+        channelTitle: snippet.channelTitle,
+        views: statistics ? statistics.viewCount : '0',
+        postedAt: snippet.publishedAt,
+      };
+      updatedLiked = [newVideo, ...liked];
+      setIsLiked(true);
+      setIsDisliked(false);
+    }
+    
+    localStorage.setItem('likedVideos', JSON.stringify(updatedLiked));
+  };
+
+  const handleToggleDislike = () => {
+    if (isDisliked) {
+      setIsDisliked(false);
+    } else {
+      setIsDisliked(true);
+      if (isLiked) {
+        handleToggleLike();
+      }
+    }
   };
 
   const handleToggleWatchLater = () => {
@@ -176,15 +216,22 @@ function VideoPlayer() {
 
                 <div className="video-actions-wrapper">
                   <div className="action-group">
-                    <button className="action-btn-player join-left">
-                      <ThumbsUp size={20} />
-                      <span>{formatCompactNumber(statistics?.likeCount)}</span>
+                    <button 
+                      className={`action-btn-player join-left ${isLiked ? 'active-action' : ''}`}
+                      onClick={handleToggleLike}
+                    >
+                      <ThumbsUp size={20} fill={isLiked ? "currentColor" : "none"} />
+                      <span>{formatCompactNumber(isLiked ? parseInt(statistics?.likeCount || 0) + 1 : statistics?.likeCount)}</span>
                     </button>
                     <div className="action-divider"></div>
-                    <button className="action-btn-player join-right">
-                      <ThumbsDown size={20} />
+                    <button 
+                      className={`action-btn-player join-right ${isDisliked ? 'active-action' : ''}`}
+                      onClick={handleToggleDislike}
+                    >
+                      <ThumbsDown size={20} fill={isDisliked ? "currentColor" : "none"} />
                     </button>
                   </div>
+
                   
                   <button className="action-btn-player">
                     <Share2 size={20} />

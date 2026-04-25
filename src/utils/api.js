@@ -4,7 +4,10 @@ const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 export const fetchFromAPI = async (endpoint, params = {}) => {
   const url = new URL(`${BASE_URL}/${endpoint}`);
   url.searchParams.append('key', API_KEY);
-  url.searchParams.append('part', 'snippet,statistics');
+  
+  if (!params.part) {
+    url.searchParams.append('part', 'snippet,statistics');
+  }
   
   Object.keys(params).forEach(key => {
     url.searchParams.append(key, params[key]);
@@ -16,6 +19,11 @@ export const fetchFromAPI = async (endpoint, params = {}) => {
   }
   const data = await response.json();
   return data.items;
+};
+
+export const formatCompactNumber = (number) => {
+  if (number === undefined || number === null) return "0";
+  return Intl.NumberFormat("en", { notation: "compact" }).format(number);
 };
 
 // Data normalization helper

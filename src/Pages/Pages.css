@@ -1,0 +1,414 @@
+/* History */
+
+.history-page {
+  padding: 24px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 24px;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #f1f1f1;
+}
+
+.clear-btn {
+  background: transparent;
+  color: #3ea6ff;
+  border: 1px solid #3e3e3e;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.clear-btn:hover {
+  background: #263850;
+  border-color: transparent;
+}
+
+.no-history-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+
+.no-history {
+  color: #aaaaaa;
+  font-size: 18px;
+  text-align: center;
+}
+
+.loading-container-small {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  gap: 12px;
+}
+
+.spinner-small {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #333;
+  border-top: 2px solid #f1f1f1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Subscriptions Page */
+.subscriptions-page {
+  padding: 24px;
+}
+
+.subscriptions-header {
+  margin-bottom: 24px;
+  padding: 0 24px;
+}
+
+.no-subscriptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  color: #aaaaaa;
+  font-size: 18px;
+}
+
+/* Video Player Page */
+.player-page-container {
+  display: flex;
+  flex-direction: row;
+  padding: 24px;
+  gap: 24px;
+  max-width: 1750px;
+  margin: 0 auto;
+}
+
+.player-page-container.single-column {
+  justify-content: center;
+  max-width: 1280px;
+}
+
+.player-main-content {
+  flex: 1;
+  min-width: 0; 
+}
+
+.video-wrapper-player {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-player-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-title-player {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 12px 0;
+  color: #f1f1f1;
+}
+
+.video-info-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.channel-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.channel-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.channel-avatar-large {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.channel-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.channel-name-player {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.subscriber-count {
+  font-size: 12px;
+  color: #aaaaaa;
+  margin: 0;
+}
+
+.subscribe-btn-player {
+  background-color: #f1f1f1;
+  color: #0f0f0f;
+  border: none;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.subscribe-btn-player:hover {
+  background-color: #d9d9d9;
+}
+
+.subscribe-btn-player.subscribed {
+  background-color: #272727;
+  color: #f1f1f1;
+}
+
+.subscribe-btn-player.subscribed:hover {
+  background-color: #3f3f3f;
+}
+
+.video-actions-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.action-group {
+  display: flex;
+  background-color: #272727;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.action-btn-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #272727;
+  color: #f1f1f1;
+  border: none;
+  padding: 0 16px;
+  height: 36px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 18px;
+  transition: background 0.2s;
+}
+
+.action-btn-player:hover {
+  background-color: #3f3f3f;
+}
+
+.action-btn-player.join-left {
+  border-radius: 18px 0 0 18px;
+}
+
+.action-btn-player.join-right {
+  border-radius: 0 18px 18px 0;
+  padding: 0 12px;
+}
+
+.action-divider {
+  width: 1px;
+  height: 20px;
+  background-color: #444;
+  align-self: center;
+}
+
+.description-container {
+  background-color: #272727;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.description-container:hover {
+  background-color: #3f3f3f;
+}
+
+.description-stats {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.description-stats span {
+  margin-right: 8px;
+}
+
+.description-text {
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.description-container.expanded .description-text {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.show-more-btn {
+  background: none;
+  border: none;
+  color: #f1f1f1;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.comments-section-player {
+  margin-top: 24px;
+}
+
+.comments-header {
+  margin-bottom: 24px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.comment-author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-author-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.comment-author-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #aaaaaa;
+}
+
+.comment-text {
+  font-size: 14px;
+  margin: 0 0 8px;
+  color: #f1f1f1;
+}
+
+.no-comments {
+  color: #aaaaaa;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 14px;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #aaaaaa;
+  font-size: 12px;
+}
+
+.reply-text {
+  margin-left: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #f1f1f1;
+}
+
+.video-card-small-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.video-card-small {
+  display: flex;
+  gap: 8px;
+}
+
+.thumbnail-small-container {
+  width: 168px;
+  height: 94px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.thumbnail-small {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-card-small-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.video-card-small-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-card-small-channel,
+.video-card-small-meta {
+  font-size: 12px;
+  color: #aaaaaa;
+  margin: 0;
+}
+
+.video-card-small-channel:hover {
+  color: #f1f1f1;
+}

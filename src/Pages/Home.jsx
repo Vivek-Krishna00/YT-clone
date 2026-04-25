@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import Layout from "../Components/Layout";
-import VideoList from "../Components/VideoList";
+import Layout from "../components/Layout";
+import VideoList from "../components/VideoList";
 import { fetchFromAPI, normalizeVideoData } from "../utils/api";
+import "./Pages.css";
 
 function Home() {
   const [videos, setVideos] = useState([]);

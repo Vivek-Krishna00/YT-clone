@@ -49,19 +49,26 @@ function Sidebar({ isOpen }) {
   return (
     <div className={`sidebar ${!isOpen ? "collapsed" : ""}`}>
       <div className="sidebar-section">
-        {primaryItems.map((item, index) => (
-          <Link 
-            key={index} 
-            to={item.label === "Home" ? "/" : "#"} 
-            className="sidebar-link"
-          >
-            <div className="sidebar-item">
-              <span className="icon">{item.icon}</span>
-              <span className="text">{item.label}</span>
-            </div>
-          </Link>
-        ))}
+        {primaryItems.map((item, index) => {
+          let link = "/";
+          if (item.label === "Subscriptions") link = "/subscriptions";
+          if (item.label === "Shorts") link = "#";
+          
+          return (
+            <Link 
+              key={index} 
+              to={link} 
+              className="sidebar-link"
+            >
+              <div className="sidebar-item">
+                <span className="icon">{item.icon}</span>
+                <span className="text">{item.label}</span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
+
 
       <hr className="sidebar-divider" />
 

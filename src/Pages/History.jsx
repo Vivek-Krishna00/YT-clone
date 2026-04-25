@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import Layout from "../Components/Layout";
-import VideoList from "../Components/VideoList";
+import Layout from "../components/Layout";
+import VideoList from "../components/VideoList";
+import "./Pages.css";
+
 
 function History() {
   const [videos, setVideos] = useState([]);

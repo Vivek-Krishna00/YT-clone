@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./components.css";
 
 import { 
@@ -6,11 +6,9 @@ import {
   PlayCircle, 
   Tv, 
   History, 
-  ListVideo, 
   Clock, 
   ThumbsUp, 
   Flame, 
-  ShoppingBag, 
   Music2, 
   Clapperboard, 
   Gamepad2, 
@@ -22,53 +20,49 @@ import {
 } from "lucide-react";
 
 function Sidebar({ isOpen }) {
+  const navigate = useNavigate();
+
   const primaryItems = [
-    { icon: <Home size={22} />, label: "Home" },
-    { icon: <PlayCircle size={22} />, label: "Shorts" },
-    { icon: <Tv size={22} />, label: "Subscriptions" },
+    { icon: <Home size={22} />, label: "Home", path: "/" },
+    { icon: <PlayCircle size={22} />, label: "Shorts", path: "/shorts" },
+    { icon: <Tv size={22} />, label: "Subscriptions", path: "/subscriptions" },
   ];
 
   const secondaryItems = [
-    { icon: <History size={22} />, label: "History" },
-    { icon: <Clock size={22} />, label: "Watch Later" },
-    { icon: <ThumbsUp size={22} />, label: "Liked Videos" },
+    { icon: <History size={22} />, label: "History", path: "/history" },
+    { icon: <Clock size={22} />, label: "Watch Later", path: "/watch-later" },
+    { icon: <ThumbsUp size={22} />, label: "Liked Videos", path: "/liked-videos" },
   ];
 
   const exploreItems = [
-    { icon: <Flame size={22} />, label: "Trending" },
-    { icon: <ShoppingBag size={22} />, label: "Shopping" },
-    { icon: <Music2 size={22} />, label: "Music" },
-    { icon: <Clapperboard size={22} />, label: "Movies" },
-    { icon: <Gamepad2 size={22} />, label: "Gaming" },
-    { icon: <Trophy size={22} />, label: "Sports" },
-    { icon: <Lightbulb size={22} />, label: "Courses" },
-    { icon: <Shirt size={22} />, label: "Fashion & Beauty" },
-    { icon: <Podcast size={22} />, label: "Podcasts" },
+    { icon: <Flame size={22} />, label: "Trending", path: "/trending" },
+    { icon: <Music2 size={22} />, label: "Music", path: "/music" },
+    { icon: <Clapperboard size={22} />, label: "Movies", path: "/movies" },
+    { icon: <Gamepad2 size={22} />, label: "Gaming", path: "/gaming" },
+    { icon: <Trophy size={22} />, label: "Sports", path: "/sports" },
+    { icon: <Lightbulb size={22} />, label: "Courses", path: "/courses" },
+    { icon: <Shirt size={22} />, label: "Fashion & Beauty", path: "/fashion" },
+    { icon: <Podcast size={22} />, label: "Podcasts", path: "/podcasts" },
   ];
+
+  const handleItemClick = (path) => {
+    navigate(path);
+  };
 
   return (
     <div className={`sidebar ${!isOpen ? "collapsed" : ""}`}>
       <div className="sidebar-section">
-        {primaryItems.map((item, index) => {
-          let link = "/";
-          if (item.label === "Subscriptions") link = "/subscriptions";
-          if (item.label === "Shorts") link = "/shorts";
-          
-          return (
-            <Link 
-              key={index} 
-              to={link} 
-              className="sidebar-link"
-            >
-              <div className="sidebar-item">
-                <span className="icon">{item.icon}</span>
-                <span className="text">{item.label}</span>
-              </div>
-            </Link>
-          );
-        })}
+        {primaryItems.map((item, index) => (
+          <div 
+            key={index} 
+            className="sidebar-item" 
+            onClick={() => handleItemClick(item.path)}
+          >
+            <span className="icon">{item.icon}</span>
+            <span className="text">{item.label}</span>
+          </div>
+        ))}
       </div>
-
 
       <hr className="sidebar-divider" />
 
@@ -77,26 +71,16 @@ function Sidebar({ isOpen }) {
           <span className="text">You</span>
           <ChevronRight size={16} />
         </div>
-        {secondaryItems.map((item, index) => {
-          let link = "/";
-          if (item.label === "History") link = "/history";
-          if (item.label === "Watch Later") link = "/watch-later";
-          if (item.label === "Liked Videos") link = "/liked-videos";
-          
-          return (
-            <Link 
-              key={index} 
-              to={link} 
-              className="sidebar-link"
-            >
-              <div className="sidebar-item">
-                <span className="icon">{item.icon}</span>
-                <span className="text">{item.label}</span>
-              </div>
-            </Link>
-          );
-        })}
-
+        {secondaryItems.map((item, index) => (
+          <div 
+            key={index} 
+            className="sidebar-item" 
+            onClick={() => handleItemClick(item.path)}
+          >
+            <span className="icon">{item.icon}</span>
+            <span className="text">{item.label}</span>
+          </div>
+        ))}
       </div>
 
       <hr className="sidebar-divider" />
@@ -106,7 +90,11 @@ function Sidebar({ isOpen }) {
           <span className="text">Explore</span>
         </div>
         {exploreItems.map((item, index) => (
-          <div key={index} className="sidebar-item">
+          <div 
+            key={index} 
+            className="sidebar-item" 
+            onClick={() => handleItemClick(item.path)}
+          >
             <span className="icon">{item.icon}</span>
             <span className="text">{item.label}</span>
           </div>

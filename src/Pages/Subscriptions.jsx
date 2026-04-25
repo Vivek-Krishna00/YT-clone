@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import Layout from "../Components/Layout";
-import { fetchFromAPI } from "../utils/api";
-import VideoCard from "../Components/VideoCard";
+import Layout from "../components/Layout";
+import { fetchVideosWithDetails, normalizeVideoData } from "../utils/api";
+import VideoCard from "../components/VideoCard";
 import "./Pages.css";
-
 
 function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -20,23 +19,14 @@ function Subscriptions() {
         if (subs.length > 0) {
           const allVideos = [];
           for (const sub of subs.slice(0, 5)) {
-            const data = await fetchFromAPI('search', {
+            const { items: data } = await fetchVideosWithDetails({
               channelId: sub.id,
-              part: 'snippet',
               order: 'date',
-              maxResults: 4,
-              type: 'video'
+              maxResults: 4
             });
             
             if (data) {
-              const normalized = data.map(video => ({
-                id: video.id.videoId,
-                title: video.snippet.title,
-                thumbnail: video.snippet.thumbnails.medium.url,
-                channelTitle: video.snippet.channelTitle,
-                views: 'Recent',
-                postedAt: new Date(video.snippet.publishedAt).toLocaleDateString()
-              }));
+              const normalized = data.map(normalizeVideoData).filter(v => v !== null);
               allVideos.push(...normalized);
             }
           }

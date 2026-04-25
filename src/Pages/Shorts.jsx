@@ -1,60 +1,70 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Layout from "../Components/Layout";
+import VideoList from "../components/VideoList";
 import { fetchFromAPI, normalizeVideoData } from "../utils/api";
-import { Link } from "react-router-dom";
+import { useInfiniteScroll } from "../utils/useInfiniteScroll";
 import "./Pages.css";
 
 function Shorts() {
   const [shorts, setShorts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [pageToken, setPageToken] = useState("");
+
+  const getShorts = useCallback(async (token = "") => {
+    try {
+      if (token) setLoadingMore(true);
+      else setLoading(true);
+
+      const { items, nextPageToken } = await fetchFromAPI('videos', {
+        chart: 'mostPopular',
+        maxResults: 20,
+        regionCode: 'IN',
+        videoCategoryId: '24',
+        pageToken: token
+      });
+
+      const normalized = items.map(normalizeVideoData).filter(v => v !== null);
+      
+      setShorts(prev => token ? [...prev, ...normalized] : normalized);
+      setPageToken(nextPageToken || "");
+    } catch (err) {
+      console.error("Failed to load shorts", err);
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const getShorts = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchFromAPI('videos', {
-          chart: 'mostPopular',
-          maxResults: 20,
-          regionCode: 'US',
-          videoCategoryId: '24'
-        });
-        const normalized = data.map(normalizeVideoData);
-        setShorts(normalized);
-      } catch (err) {
-        console.error("Failed to load shorts", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     getShorts();
-  }, []);
+  }, [getShorts]);
+
+  useInfiniteScroll(() => {
+    if (pageToken && !loadingMore) {
+      getShorts(pageToken);
+    }
+  }, loading || loadingMore);
 
   return (
     <Layout>
-      <div className="shorts-page">
-        <div className="shorts-grid">
-          {loading ? (
-            <div className="loading-container">
-              <div className="spinner"></div>
-              <p>Loading Shorts...</p>
-            </div>
-          ) : (
-            shorts.map((short) => (
-              <Link key={short.id} to={`/video/${short.id}`} className="short-card-link">
-                <div className="short-card">
-                  <div className="short-thumbnail-container">
-                    <img src={short.thumbnail} alt={short.title} className="short-thumbnail" />
-                    <div className="short-overlay">
-                      <span className="short-title">{short.title}</span>
-                      <span className="short-views">{short.views}</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))
-          )}
+      <div className="shorts-page-v2">
+        <div className="explore-header">
+          <h2 className="explore-title">Shorts</h2>
         </div>
+        {loading && shorts.length === 0 ? (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Loading Shorts...</p>
+          </div>
+        ) : (
+          <VideoList videos={shorts} />
+        )}
+        {loadingMore && (
+          <div className="loading-more">
+            <div className="spinner"></div>
+          </div>
+        )}
       </div>
     </Layout>
   );

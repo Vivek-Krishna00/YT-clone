@@ -17,6 +17,9 @@ function VideoCard({ video }) {
             alt={video.title}
             className="thumbnail"
           />
+          {video.duration && (
+            <span className="video-duration">{video.duration}</span>
+          )}
         </div>
 
         <div className="video-info">

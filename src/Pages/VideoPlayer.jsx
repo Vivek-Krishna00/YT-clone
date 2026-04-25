@@ -120,7 +120,7 @@ function VideoPlayer() {
       setLoading(true);
       setError(null);
       try {
-        const videoData = await fetchFromAPI('videos', { id });
+        const { items: videoData } = await fetchFromAPI('videos', { id });
         if (!videoData || videoData.length === 0) {
           throw new Error("Video not found");
         }
@@ -128,7 +128,7 @@ function VideoPlayer() {
         setVideoDetail(video);
 
         try {
-          const channelData = await fetchFromAPI('channels', { id: video.snippet.channelId });
+          const { items: channelData } = await fetchFromAPI('channels', { id: video.snippet.channelId });
           if (channelData && channelData.length > 0) {
             setChannelDetail(channelData[0]);
           }
@@ -137,7 +137,7 @@ function VideoPlayer() {
         }
 
         try {
-          const commentData = await fetchFromAPI('commentThreads', { 
+          const { items: commentData } = await fetchFromAPI('commentThreads', { 
             videoId: id, 
             maxResults: 20,
             part: 'snippet'

@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import Layout from "../Components/Layout";
 import VideoList from "../components/VideoList";
-import { fetchFromAPI, normalizeVideoData } from "../utils/api";
+import { fetchVideosWithDetails, normalizeVideoData } from "../utils/api";
 import { useInfiniteScroll } from "../utils/useInfiniteScroll";
 import "./Pages.css";
 
-function Home() {
+function Movies() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -17,19 +17,20 @@ function Home() {
       if (token) setLoadingMore(true);
       else setLoading(true);
 
-      const { items, nextPageToken } = await fetchFromAPI('videos', {
-        chart: 'mostPopular',
+      const { items, nextPageToken } = await fetchVideosWithDetails({
+        q: 'full movie',
+        videoCategoryId: '1',
+        videoDuration: 'long',
         maxResults: 20,
-        pageToken: token,
-        regionCode: 'IN'
+        regionCode: 'IN',
+        pageToken: token
       });
 
       const normalized = items.map(normalizeVideoData).filter(v => v !== null);
-      
       setVideos(prev => token ? [...prev, ...normalized] : normalized);
       setPageToken(nextPageToken || "");
     } catch (err) {
-      setError("Failed to load videos. Please try again later.");
+      setError("Failed to load movies. Please try again later.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -49,11 +50,14 @@ function Home() {
 
   return (
     <Layout>
-      <div className="home-page">
+      <div className="explore-page">
+        <div className="explore-header">
+          <h2 className="explore-title">Movies</h2>
+        </div>
         {loading && videos.length === 0 ? (
           <div className="loading-container">
             <div className="spinner"></div>
-            <p>Loading the latest videos for you...</p>
+            <p>Loading movies...</p>
           </div>
         ) : error ? (
           <div className="error-message">{error}</div>
@@ -72,4 +76,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Movies;

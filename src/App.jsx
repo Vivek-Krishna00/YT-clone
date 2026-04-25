@@ -6,6 +6,9 @@ import Subscriptions from './Pages/Subscriptions';
 import WatchLater from './Pages/WatchLater';
 import Shorts from './Pages/Shorts';
 import LikedVideos from './Pages/LikedVideos';
+import Trending from './Pages/Trending';
+import Music from './Pages/Music';
+import Movies from './Pages/Movies';
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Route path="/watch-later" element={<WatchLater />} />
         <Route path="/shorts" element={<Shorts />} />
         <Route path="/liked-videos" element={<LikedVideos />} />
+        <Route path="/trending" element={<Trending />} />
+        <Route path="/music" element={<Music />} />
+        <Route path="/movies" element={<Movies />} />
       </Routes>
     </Router>
 

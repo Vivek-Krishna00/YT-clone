@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import { fetchFromAPI, formatCompactNumber } from "../utils/api";
 import { 
   ThumbsUp, 
   ThumbsDown, 
-  Share2
+  Share2,
+  Clock
 } from "lucide-react";
 import "./Pages.css";
 
@@ -19,13 +20,17 @@ function VideoPlayer() {
   const [error, setError] = useState(null);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isInWatchLater, setIsInWatchLater] = useState(false);
 
   useEffect(() => {
     if (videoDetail?.snippet?.channelId) {
       const subscriptions = JSON.parse(localStorage.getItem('subscriptions') || '[]');
       setIsSubscribed(subscriptions.some(sub => sub.id === videoDetail.snippet.channelId));
+      
+      const watchLater = JSON.parse(localStorage.getItem('watchLaterVideos') || '[]');
+      setIsInWatchLater(watchLater.some(v => v.id === id));
     }
-  }, [videoDetail]);
+  }, [videoDetail, id]);
 
   const handleToggleSubscribe = () => {
     const subscriptions = JSON.parse(localStorage.getItem('subscriptions') || '[]');
@@ -46,6 +51,28 @@ function VideoPlayer() {
     
     localStorage.setItem('subscriptions', JSON.stringify(updatedSubscriptions));
     setIsSubscribed(!isSubscribed);
+  };
+
+  const handleToggleWatchLater = () => {
+    const watchLater = JSON.parse(localStorage.getItem('watchLaterVideos') || '[]');
+    let updatedWatchLater;
+    
+    if (isInWatchLater) {
+      updatedWatchLater = watchLater.filter(v => v.id !== id);
+    } else {
+      const newVideo = {
+        id: id,
+        title: snippet.title,
+        thumbnail: snippet.thumbnails.medium.url,
+        channelTitle: snippet.channelTitle,
+        views: statistics ? statistics.viewCount : '0',
+        postedAt: snippet.publishedAt,
+      };
+      updatedWatchLater = [newVideo, ...watchLater];
+    }
+    
+    localStorage.setItem('watchLaterVideos', JSON.stringify(updatedWatchLater));
+    setIsInWatchLater(!isInWatchLater);
   };
 
   useEffect(() => {
@@ -162,6 +189,14 @@ function VideoPlayer() {
                   <button className="action-btn-player">
                     <Share2 size={20} />
                     <span>Share</span>
+                  </button>
+
+                  <button 
+                    className={`action-btn-player ${isInWatchLater ? 'active-action' : ''}`}
+                    onClick={handleToggleWatchLater}
+                  >
+                    <Clock size={20} fill={isInWatchLater ? "currentColor" : "none"} />
+                    <span>{isInWatchLater ? 'Added' : 'Watch Later'}</span>
                   </button>
                 </div>
               </div>

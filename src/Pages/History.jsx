@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Layout from "../components/Layout";
-import VideoList from "../components/VideoList";
+import Layout from "../Components/Layout";
+import VideoList from "../Components/VideoList";
 import "./Pages.css";
 
 

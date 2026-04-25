@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import { fetchFromAPI } from "../utils/api";
-import VideoCard from "../components/VideoCard";
+import VideoCard from "../Components/VideoCard";
 import "./Pages.css";
 
 

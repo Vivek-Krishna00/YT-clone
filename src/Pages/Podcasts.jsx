@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import Layout from "../Components/Layout";
-import VideoList from "../Components/VideoList";
-import { fetchFromAPI, normalizeVideoData } from "../utils/api";
+import VideoList from "../components/VideoList";
+import { fetchVideosWithDetails, normalizeVideoData } from "../utils/api";
 import { useInfiniteScroll } from "../utils/useInfiniteScroll";
 import "./Pages.css";
 
-function Sports() {
+function Podcasts() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -17,9 +17,8 @@ function Sports() {
       if (token) setLoadingMore(true);
       else setLoading(true);
 
-      const { items, nextPageToken } = await fetchFromAPI('videos', {
-        chart: 'mostPopular',
-        videoCategoryId: '17', // Sports
+      const { items, nextPageToken } = await fetchVideosWithDetails({
+        q: 'podcast',
         maxResults: 20,
         regionCode: 'IN',
         pageToken: token
@@ -29,7 +28,7 @@ function Sports() {
       setVideos(prev => token ? [...prev, ...normalized] : normalized);
       setPageToken(nextPageToken || "");
     } catch (err) {
-      setError("Failed to load sports videos. Please try again later.");
+      setError("Failed to load podcasts. Please try again later.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -51,12 +50,12 @@ function Sports() {
     <Layout>
       <div className="explore-page">
         <div className="explore-header">
-          <h2 className="explore-title">Sports</h2>
+          <h2 className="explore-title">Podcasts</h2>
         </div>
         {loading && videos.length === 0 ? (
           <div className="loading-container">
             <div className="spinner"></div>
-            <p>Loading sports videos...</p>
+            <p>Loading podcasts...</p>
           </div>
         ) : error ? (
           <div className="error-message">{error}</div>
@@ -75,4 +74,4 @@ function Sports() {
   );
 }
 
-export default Sports;
+export default Podcasts;

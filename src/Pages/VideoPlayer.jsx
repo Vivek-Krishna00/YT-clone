@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../Components/Layout";
 import { fetchFromAPI, formatCompactNumber } from "../utils/api";
 import { 
   ThumbsUp, 
   ThumbsDown, 
   Share2,
-  Clock
+  Clock,
+  ArrowLeft
 } from "lucide-react";
 import "./Pages.css";
 
 
 function VideoPlayer() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [videoDetail, setVideoDetail] = useState(null);
   const [channelDetail, setChannelDetail] = useState(null);
   const [comments, setComments] = useState([]);
@@ -167,6 +169,9 @@ function VideoPlayer() {
     <Layout>
       <div className="player-page-container single-column">
         <div className="player-main-content">
+          <button className="back-btn" onClick={() => navigate(-1)} title="Go back">
+            <ArrowLeft size={24} />
+          </button>
           <div className="video-wrapper-player">
             <iframe
               src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`}

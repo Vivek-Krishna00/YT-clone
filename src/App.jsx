@@ -13,6 +13,8 @@ import Search from './Pages/Search';
 import Gaming from './Pages/Gaming';
 import Sports from './Pages/Sports';
 import Courses from './Pages/Courses';
+import Fashion from './Pages/Fashion';
+import Podcasts from './Pages/Podcasts';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/gaming" element={<Gaming />} />
         <Route path="/sports" element={<Sports />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/fashion" element={<Fashion />} />
+        <Route path="/podcasts" element={<Podcasts />} />
       </Routes>
     </Router>
 

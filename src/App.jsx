@@ -9,6 +9,10 @@ import LikedVideos from './Pages/LikedVideos';
 import Trending from './Pages/Trending';
 import Music from './Pages/Music';
 import Movies from './Pages/Movies';
+import Search from './Pages/Search';
+import Gaming from './Pages/Gaming';
+import Sports from './Pages/Sports';
+import Courses from './Pages/Courses';
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
         <Route path="/trending" element={<Trending />} />
         <Route path="/music" element={<Music />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/search/:query" element={<Search />} />
+        <Route path="/gaming" element={<Gaming />} />
+        <Route path="/sports" element={<Sports />} />
+        <Route path="/courses" element={<Courses />} />
       </Routes>
     </Router>
 

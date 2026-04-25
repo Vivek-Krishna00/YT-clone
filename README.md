@@ -32,7 +32,7 @@ A high-fidelity, production-grade YouTube clone built with modern web technologi
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Himanshubansal-2008/YT-clone.git
+   git clone 
    cd YT-clone
    ```
 
@@ -52,13 +52,10 @@ A high-fidelity, production-grade YouTube clone built with modern web technologi
    npm run dev
    ```
 
-## 🌐 Deployment
-
-This project is optimized for deployment on platforms like **Vercel**. It includes specific fixes for case-sensitive file systems and environment-based API configurations.
 
 ## 📸 Screenshots
 
-*(Add your screenshots here)*
+![alt text](image.png)
 
 ---
 

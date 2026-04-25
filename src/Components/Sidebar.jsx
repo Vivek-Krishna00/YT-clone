@@ -52,7 +52,7 @@ function Sidebar({ isOpen }) {
         {primaryItems.map((item, index) => {
           let link = "/";
           if (item.label === "Subscriptions") link = "/subscriptions";
-          if (item.label === "Shorts") link = "#";
+          if (item.label === "Shorts") link = "/shorts";
           
           return (
             <Link 
@@ -80,7 +80,7 @@ function Sidebar({ isOpen }) {
         {secondaryItems.map((item, index) => (
           <Link 
             key={index} 
-            to={item.label === "History" ? "/history" : "#"} 
+            to={item.label === "History" ? "/history" : item.label === "Watch Later" ? "/watch-later" : "#"} 
             className="sidebar-link"
           >
             <div className="sidebar-item">

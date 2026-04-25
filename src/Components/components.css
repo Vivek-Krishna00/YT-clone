@@ -362,15 +362,156 @@ body {
 }
 
 
-@media (max-width: 600px) {
-  .hide-mobile {
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 72px;
+    padding: 12px 4px;
+    overflow: hidden;
+  }
+
+  .sidebar .text,
+  .sidebar .sidebar-header,
+  .sidebar .sidebar-divider,
+  .sidebar .sidebar-section:not(:first-child) {
     display: none;
+  }
+
+  .sidebar .sidebar-item {
+    justify-content: center;
+    gap: 0;
+    padding: 12px 0;
+  }
+
+  .nav-center {
+    flex: 0 1 480px;
+  }
+
+  .search-container {
+    margin-left: 16px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    padding: 16px;
+    gap: 12px;
   }
 }
 
+/* ── Mobile (≤ 640px) ── */
+@media (max-width: 640px) {
+  /* Navbar */
+  .navbar {
+    padding: 0 8px;
+    height: 52px;
+  }
 
-@media (max-width: 600px) {
-  .hide-mobile {
+  .nav-left {
+    gap: 8px;
+  }
+
+  .yt-logo-dark {
+    height: 16px;
+  }
+
+  /* Hide search bar in navbar; show icon only */
+  .nav-center {
     display: none;
+  }
+
+  /* Sidebar becomes a bottom nav bar */
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 56px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: auto;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px;
+    border-top: 1px solid #272727;
+    overflow: visible;
+  }
+
+  .sidebar.collapsed {
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .sidebar .sidebar-section {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    padding-bottom: 0;
+    flex: 1;
+    justify-content: space-around;
+  }
+
+  /* Only show primary nav items in bottom bar */
+  .sidebar .sidebar-section:not(:first-child) {
+    display: none !important;
+  }
+
+  .sidebar .sidebar-item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar .text {
+    display: block !important;
+    font-size: 10px;
+  }
+
+  .sidebar .sidebar-header,
+  .sidebar .sidebar-divider {
+    display: none !important;
+  }
+
+  .content {
+    padding-bottom: 64px;
+    min-height: calc(100vh - 52px);
+  }
+
+  /* Video grid: 1 column on small screens */
+  .video-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .search-container {
+    margin-left: 0;
+  }
+
+  .profile-avatar {
+    margin-left: 0;
+  }
+}
+
+/* ── Very small screens (≤ 400px) ── */
+@media (max-width: 400px) {
+  .video-grid {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .channel, .meta {
+    font-size: 12px;
   }
 }

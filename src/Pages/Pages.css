@@ -544,3 +544,136 @@
 .shorts-grid-container .video-grid {
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
+
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .player-page-container {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .explore-header {
+    padding: 0 24px;
+  }
+
+  .shorts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    padding: 0 16px;
+  }
+
+  .history-header {
+    padding: 0 16px;
+  }
+}
+
+/* ── Mobile (≤ 640px) ── */
+@media (max-width: 640px) {
+  /* Video Player */
+  .player-page-container {
+    flex-direction: column;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .video-title-player {
+    font-size: 16px;
+  }
+
+  .video-info-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .channel-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .video-actions-wrapper {
+    flex-wrap: wrap;
+  }
+
+  .action-btn-player {
+    font-size: 12px;
+    padding: 0 10px;
+    height: 32px;
+  }
+
+  /* History */
+  .history-page {
+    padding: 16px;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0;
+    margin-bottom: 16px;
+  }
+
+  .history-header h2 {
+    font-size: 20px;
+  }
+
+  /* Explore pages */
+  .explore-header {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+
+  .explore-title {
+    font-size: 20px;
+  }
+
+  /* Shorts */
+  .shorts-page {
+    padding: 12px;
+  }
+
+  .shorts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    gap: 10px;
+  }
+
+  /* Subscriptions */
+  .subscriptions-page {
+    padding: 12px;
+  }
+
+  .subscriptions-header {
+    padding: 0;
+    margin-bottom: 16px;
+  }
+
+  /* Small sidebar cards in video player */
+  .thumbnail-small-container {
+    width: 120px;
+    height: 68px;
+  }
+
+  .video-card-small-title {
+    font-size: 13px;
+  }
+}
+
+/* ── Very small screens (≤ 400px) ── */
+@media (max-width: 400px) {
+  .shorts-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .explore-title {
+    font-size: 18px;
+  }
+
+  .player-page-container {
+    padding: 8px;
+  }
+}
